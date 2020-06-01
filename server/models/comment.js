@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User" },
   title: String,
-  comment: String,
+  description: String,
   created: { type: Date, default: Date.now() },
 });
 

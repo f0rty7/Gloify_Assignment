@@ -13,9 +13,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   },
-  error => {
+  (error) => {
     if (error) {
       console.log("Connection to Databse failed");
       console.log(error);
@@ -29,9 +29,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.get("/", function(req, res, next){
-  res.send(JSON.stringify(`Helloooo!!! there you've reached backend. Server is online!!!`))
-})
+const userRoutes = require('./routes/userRoute');
+const postRoutes = require('./routes/postRoute');
+
+app.use("/gloify/accounts", userRoutes);
+app.use("/gloify", postRoutes);
+app.get("/", function (req, res, next) {
+  res.send(
+    JSON.stringify(
+      `Helloooo!!! there you've reached backend. Server is online!!!`
+    )
+  );
+});
 
 app.listen(port, () => {
   console.log("Server running on port ==> " + port);

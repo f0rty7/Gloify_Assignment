@@ -23,7 +23,7 @@ module.exports = function (req, res, next) {
   } else {
     res.status(403).json({
       succes: false,
-      message: "Token not found"
-    })
+      message: "Token not found",
+    });
   }
 };
