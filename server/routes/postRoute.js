@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 const checkJwt = require("../middlewares/jwt");
 
 router
@@ -32,8 +33,8 @@ router
 
 router.get("/posts/:postId", (req, res) => {
   console.log(req.body);
-  Post.findById({ _id: req.params.id })
-    // .populate("owner")
+  Post.findById({ _id: req.params.postId })
+    .populate("owner")
     .populate("comments")
     .exec((err, post) => {
       if (err) {
@@ -54,34 +55,40 @@ router.get("/posts/:postId", (req, res) => {
     });
 });
 
-router.put("/posts/:postId/upvote", checkJwt, (req, res) => {
-  req.body.upvote((err, post) => {
-    if (err) throw err;
-    else {
-      if (post) {
-        res.json({
-          success: true,
-          message: "Post upvoted !!!",
-          post: post,
-        });
+router.put("/posts/:postId/upvote", checkJwt, async (req, res) => {
+  const post = await Post.findById(req.params.postId);
+  if (post) {
+    post.upvote((err, post) => {
+      if (err) throw err;
+      else {
+        if (post) {
+          res.json({
+            success: true,
+            message: "Post upvoted !!!",
+            post: post,
+          });
+        }
       }
-    }
-  });
+    });
+  }
 });
 
-router.put("/posts/:postId/downvote", checkJwt, (req, res) => {
-  req.body.downvote((err, post) => {
-    if (err) throw err;
-    else {
-      if (post) {
-        res.json({
-          success: true,
-          message: "Post downvoted !!!",
-          post: post,
-        });
+router.put("/posts/:postId/downvote", checkJwt, async (req, res) => {
+  const post = await Post.findById(req.params.postId);
+  if (post) {
+    post.downvote((err, post) => {
+      if (err) throw err;
+      else {
+        if (post) {
+          res.json({
+            success: true,
+            message: "Post downvoted !!!",
+            post: post,
+          });
+        }
       }
-    }
-  });
+    });
+  }
 });
 
 module.exports = router;

@@ -11,12 +11,12 @@ const commentSchema = new Schema({
   post: { type: Schema.Types.ObjectId, ref: "Posts" },
 });
 
-commentSchema.methods.upvotes = function (cb) {
+commentSchema.methods.upvote = function (cb) {
   this.upvotes += 1;
   this.save(cb);
 };
 
-commentSchema.methods.downvotes = function (cb) {
+commentSchema.methods.downvote = function (cb) {
   this.downvotes += 1;
   this.save(cb);
 };
