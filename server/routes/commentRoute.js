@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Comment = require("../models/comment");
+const Post = require("../models/post");
 
 router.route("/comments")
 .get((req, res) =>{

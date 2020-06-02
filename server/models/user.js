@@ -13,20 +13,20 @@ const userSchema = new Schema({
 module.exports = mongoose.model("User", userSchema);
 
 
-module.exports.addUser = (newUser, callback) => {
+module.exports.addUser = (newUser, cb) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       if (err) throw err;
       newUser.password = hash;
-      newUser.save(callback);
+      newUser.save(cb);
     });
   });
 };
 
-module.exports.comparePassword = function (candidatePassword, hash, callback) {
-  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+module.exports.comparePassword = function (userPassword, hash, cb) {
+  bcrypt.compare(userPassword, hash, (err, isMatch) => {
     if (err) throw err;
-    callback(null, isMatch);
+    cb(null, isMatch);
   });
 };
 
