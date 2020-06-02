@@ -33,7 +33,7 @@ router
 router.get("/posts/:postId", (req, res) => {
   console.log(req.body);
   Post.findById({ _id: req.params.id })
-    .populate("owner")
+    // .populate("owner")
     .populate("comments")
     .exec((err, post) => {
       if (err) {
@@ -55,14 +55,14 @@ router.get("/posts/:postId", (req, res) => {
 });
 
 router.put("/posts/:postId/upvote", checkJwt, (req, res) => {
-  req.body.upvote( (err, post) => {
-    if(err) throw err;
+  req.body.upvote((err, post) => {
+    if (err) throw err;
     else {
-      if(post){
+      if (post) {
         res.json({
           success: true,
           message: "Post upvoted !!!",
-          post: post
+          post: post,
         });
       }
     }
@@ -70,14 +70,14 @@ router.put("/posts/:postId/upvote", checkJwt, (req, res) => {
 });
 
 router.put("/posts/:postId/downvote", checkJwt, (req, res) => {
-  req.body.downvote( (err, post) => {
-    if(err) throw err;
+  req.body.downvote((err, post) => {
+    if (err) throw err;
     else {
-      if(post){
+      if (post) {
         res.json({
           success: true,
           message: "Post downvoted !!!",
-          post: post
+          post: post,
         });
       }
     }
