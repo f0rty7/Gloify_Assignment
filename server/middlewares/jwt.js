@@ -3,8 +3,7 @@ const config = require("../config");
 
 module.exports = function (req, res, next) {
   let token = req.headers["authorization"] || req.headers["Authorization"];
-  console.log("Token is");
-  console.log(token);
+  console.log("Token is\n", token);
 
   if (token) {
     jwt.verify(token, config.secret, function (err, decoded) {

@@ -1,0 +1,23 @@
+<section id="profile">
+  <div class="container p-5">
+    <h4 class="display-4">My profile</h4>
+    <hr>
+    <div *ngIf="!data.user" class="m-auto">
+      <h1 class="text-center display-3 mt-5">
+        <i class="fa fa-spinner fa-spin"></i>
+      </h1>
+    </div>
+    <div *ngIf="data.user" class="row mt-5">
+      <div class="col-md-8 ml-3">
+        <p class="lead" id="name">{{ data.user.name }}</p>
+        <a routerLink="/profile/settings" class="btn btn-warning">Account Settings</a>
+        <br>
+        <br>
+        <a routerLink="/profile/newpost" class="btn btn-warning">Create Post</a>
+        <br>
+        <br>
+        <a routerLink="/profile/myposts" class="btn btn-warning">My Posts</a>
+      </div>
+    </div>
+  </div>
+</section>

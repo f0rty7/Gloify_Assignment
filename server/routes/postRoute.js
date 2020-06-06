@@ -55,6 +55,17 @@ router.get("/posts/:postId", (req, res) => {
     });
 });
 
+router.get("/posts",checkJwt, (req,res) => {
+  console.log("Req decoded\n", req.decoded);
+  Post.findOne({_id: req.decoded._id}, (err,posts) => {
+    res.json({
+      success: true,
+      message: "Successfully gathered all posts",
+      posts: posts
+    });
+  });
+});
+
 router.put("/posts/:postId/upvote", checkJwt, async (req, res) => {
   const post = await Post.findById(req.params.postId);
   if (post) {

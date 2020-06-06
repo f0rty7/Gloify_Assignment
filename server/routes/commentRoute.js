@@ -35,6 +35,17 @@ router
     }
   });
 
+router.get("/comments",checkJwt, (req,res) => {
+  console.log("Req decoded\n", req.decoded);
+  Comment.findOne({_id: req.decoded._id}, (err,comments) => {
+    res.json({
+      success: true,
+      message: "Successfully gathered all",
+      comments: comments
+    });
+  });
+});
+
 router.put("/comments/:commentId/upvote", checkJwt, async (req, res) => {
   const comment = await Comment.findById(req.params.commentId);
   if (comment) {

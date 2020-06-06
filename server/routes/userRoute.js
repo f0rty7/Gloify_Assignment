@@ -2,6 +2,7 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const config = require("../config");
+const checkJwt = require("../middlewares/jwt");
 
 router.post("/signup", (req, res) => {
   console.log("user entered details \n", req.body);
@@ -66,5 +67,34 @@ router.post("/signin", (req, res) => {
     }
   });
 });
+
+router
+  .route("/profile")
+  .get(checkJwt, (req, res) => {
+    console.log(req.body);
+    User.findOne({ _id: req.decoded._id }, (err, user) => {
+      res.json({
+        success: true,
+        message: "Successfully gathered user information",
+        user: user,
+      });
+    });
+  })
+  .post(checkJwt, (req, res, next) => {
+    User.findOne({ _id: req.decoded._id }, (err, user) => {
+      console.log(req.body);
+      if (err) return next(err);
+
+      if (req.body.name) user.name = req.body.name;
+      if (req.body.email) user.email = req.body.email;
+      if (req.body.password) user.password = req.body.password;
+
+      user.save();
+      res.json({
+        success: true,
+        message: "Successfully edited profile",
+      });
+    });
+  });
 
 module.exports = router;

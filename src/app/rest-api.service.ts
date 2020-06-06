@@ -20,4 +20,8 @@ export class RestApiService {
   post(url: string, data: any) {
     return this.http.post(url, data, { headers: this.getHeaders() }).toPromise();
   }
+
+  put(url: string, data: any) {
+    return this.http.put(url, data, { headers: this.getHeaders() }).toPromise();
+  }
 }

@@ -1,0 +1,25 @@
+<section id="home">
+  <div class="container p-5">
+    <app-message></app-message>
+    <p class="lead">
+      <b>Recommended Posts:</b>
+    </p>
+    <div class="row">
+      <div *ngIf="!posts" class="m-auto">
+        <h1 class="text-center display-3 mt-5">
+          <i class="fa fa-spinner fa-spin"></i>
+        </h1>
+      </div>
+      <div *ngFor="let post of posts" class="col-md-3 mb-5">
+        <a routerLink="/post/{{ post._id }}">
+          <div class="card-bg-light">
+            <img src="{{post.image}}" alt="" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{post.title}}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

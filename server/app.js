@@ -35,7 +35,6 @@ const commentRoutes = require('./routes/commentRoute');
 
 app.use("/gloify/accounts", userRoutes);
 app.use("/gloify", postRoutes,commentRoutes);
-// app.use("/gloify", commentRoutes);
 app.get("/", function (req, res, next) {
   res.send(
     JSON.stringify(
