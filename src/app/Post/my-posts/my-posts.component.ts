@@ -19,9 +19,9 @@ export class MyPostsComponent implements OnInit {
   data = this.dataService;
 
   async ngOnInit() {
-    let productsUrl = "http://localhost:4000/gloify/posts";
+    let postsUrl = "http://localhost:4000/gloify/posts";
     try {
-      const data = await this.apiService.get(productsUrl);
+      const data = await this.apiService.get(postsUrl);
       console.log("My Posts", data);
       data["message"]
         ? (this.posts = data["posts"])

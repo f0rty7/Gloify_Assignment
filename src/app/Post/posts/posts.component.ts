@@ -67,6 +67,7 @@ export class PostsComponent implements OnInit {
       data["success"]
       ? (this.dataService.success("Post Upvoted !!!"))
       : this.dataService.error("Couldn't UpVote");
+      this.post.upvotes += 1;
     } catch (error) {
       this.dataService.error(error["message"]);
     }
@@ -79,6 +80,7 @@ export class PostsComponent implements OnInit {
       data["success"]
       ? (this.dataService.success("Post Downvoted !!!"))
       : this.dataService.error("Couldn't DownVote");
+      this.post.upvotes -= 1;
     } catch (error) {
       this.dataService.error(error["message"]);
     }
@@ -91,6 +93,7 @@ export class PostsComponent implements OnInit {
       data["success"]
       ? (this.dataService.success("Comment Upvoted !!!"))
       : this.dataService.error("Couldn't UpVote");
+      this.post.comments.upvotes += 1;
     } catch (error) {
       this.dataService.error(error["message"]);
     }
@@ -103,6 +106,7 @@ export class PostsComponent implements OnInit {
       data["success"]
       ? (this.dataService.success("Comment DownVoted !!!"))
       : this.dataService.error("Couldn't DownVote");
+      this.post.upvotes -= 1;
     } catch (error) {
       this.dataService.error(error["message"]);
     }

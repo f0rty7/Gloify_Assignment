@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   data = this.dataService;
 
   async ngOnInit() {
-    let productsUrl = "http://localhost:4000/gloify/posts";
+    let postsUrl = "http://localhost:4000/gloify/posts";
     try {
-      const data = await this.apiService.get(productsUrl);
+      const data = await this.apiService.get(postsUrl);
       data["success"]
         ? (this.posts = data["posts"])
         : this.data.error("Could not fetch products");

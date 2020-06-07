@@ -31,8 +31,8 @@ export class NewPostComponent implements OnInit{
     this.btnDisabled = true;
     try {
       if (this.post) {
-        let postProductUrl = 'http://localhost:4000/gloify/posts';
-        const data = await this.apiService.post(postProductUrl, this.post);
+        let createPostUrl = 'http://localhost:4000/gloify/posts';
+        const data = await this.apiService.post(createPostUrl, this.post);
         data['success']
           ? this.router
               .navigate(['/'])
