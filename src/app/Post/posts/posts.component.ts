@@ -46,18 +46,22 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  refreshData() {
+    this.ngOnInit();
+  }
+
   postComment() {
-    this.btnDisabled = true;
+    this.btnDisabled = false;
     let commentsUrl = "http://localhost:4000/gloify/comments";
     try {
       const data = this.apiService.post(commentsUrl, this.myComment);
       data["success"]
         ? this.data.success(data["message"])
         : this.data.error(data["message"]);
+        this.refreshData();
     } catch (error) {
       this.data.error(error["message"]);
     }
-    this.btnDisabled = false;
   }
 
   async postUpVote() {
@@ -94,6 +98,7 @@ export class PostsComponent implements OnInit {
       ? (this.dataService.success("Comment Upvoted !!!"))
       : this.dataService.error("Couldn't UpVote");
       this.post.comments.upvotes += 1;
+      this.refreshData();
     } catch (error) {
       this.dataService.error(error["message"]);
     }
@@ -107,6 +112,7 @@ export class PostsComponent implements OnInit {
       ? (this.dataService.success("Comment DownVoted !!!"))
       : this.dataService.error("Couldn't DownVote");
       this.post.upvotes -= 1;
+      this.refreshData();
     } catch (error) {
       this.dataService.error(error["message"]);
     }
